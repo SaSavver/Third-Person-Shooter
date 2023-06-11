@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870825dfc3a20a34881b8a35f9f1fc10, type: 3}
+  m_Name: DropConfig
+  m_EditorClassIdentifier: 
+  DropItems:
+  - rid: 4484750808139169792
+  - rid: 4484750808139169795
+  - rid: 4484750808139169796
+  ItemMagnetSpeed: 10
+  references:
+    version: 2
+    RefIds:
+    - rid: 4484750808139169792
+      type: {class: HealthKitItemData, ns: , asm: Assembly-CSharp}
+      data:
+        ItemID: small_healthkit
+        DropItemTypeLocal: 1
+        RestoreHealthAmount: 30
+        ItemDropChance: 100
+        ItemPrefab: {fileID: 4941507330767213104, guid: 376ba8466cf235f4ea1f866233ad59c8, type: 3}
+    - rid: 4484750808139169795
+      type: {class: ExperienceItemData, ns: , asm: Assembly-CSharp}
+      data:
+        ItemID: small_exp
+        DropItemTypeLocal: 0
+        ExpToGive: 50
+        ItemDropChance: 100
+        ItemPrefab: {fileID: 4482687027051273743, guid: 30a115b16e1a03e4f8e87510b4db0d78, type: 3}
+    - rid: 4484750808139169796
+      type: {class: ExperienceItemData, ns: , asm: Assembly-CSharp}
+      data:
+        ItemID: medium_exp
+        DropItemTypeLocal: 0
+        ExpToGive: 500
+        ItemDropChance: 20
+        ItemPrefab: {fileID: 2671981165139119416, guid: b23a6f1c49e7d9848953a17e97cc2a44, type: 3}

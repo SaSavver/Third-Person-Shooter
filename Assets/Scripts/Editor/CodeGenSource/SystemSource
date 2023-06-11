@@ -1,0 +1,21 @@
+using Leopotam.EcsLite;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SYSTEM_NAME : IEcsInitSystem, IEcsRunSystem
+{
+    private EcsWorld _world;
+    private SharedData _sharedData;
+
+    public void Init(IEcsSystems systems)
+    {
+        _world = systems.GetWorld();
+        _sharedData = systems.GetShared<SharedData>();
+    }
+
+    public void Run(IEcsSystems systems)
+    {
+        
+    }
+}

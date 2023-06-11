@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26584abbd6847324e86df9f14eeffe4d, type: 3}
+  m_Name: EnemiesConfig
+  m_EditorClassIdentifier: 
+  _enemyVariants:
+  - Type: 0
+    Health: 100
+    MaxHealth: 100
+    Speed: 0.5
+    Damage: 10
+    AttackDelay: 1.5
+    AttackDistance: 0.5
+    EnemyPrefab: {fileID: 5536237336010151900, guid: b322c49f5acb617409bd82c74211485e, type: 3}
+  - Type: 1
+    Health: 80
+    MaxHealth: 80
+    Speed: 0.8
+    Damage: 10
+    AttackDelay: 1
+    AttackDistance: 0.5
+    EnemyPrefab: {fileID: 8381640811884134029, guid: 26cdd135971e14d4c95a575f7cf097e5, type: 3}

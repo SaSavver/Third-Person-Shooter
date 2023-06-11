@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ccf3b9c4729778428bc7c395f39f90f, type: 3}
+  m_Name: GlobalStorageConfig
+  m_EditorClassIdentifier: 
+  PlayerConfig: {fileID: 11400000, guid: 7d7e78ca4ff89914d82f149e23d5ec95, type: 2}
+  UIConfig: {fileID: 11400000, guid: 1a787e63249e095408a70742e3d9552d, type: 2}
+  EnemiesConfig: {fileID: 11400000, guid: d1eebebfa72109947be50fc063b9a794, type: 2}
+  WeaponConfig: {fileID: 11400000, guid: a6a88fd5f4ce1d2419a1bbf9a0f7f5e2, type: 2}
+  DropConfig: {fileID: 11400000, guid: 0452d4064283e3f42b87aab950bdf14c, type: 2}
+  ScenesConfig: {fileID: 11400000, guid: f85eb759c22c5ec4797dc69973b6f30b, type: 2}
