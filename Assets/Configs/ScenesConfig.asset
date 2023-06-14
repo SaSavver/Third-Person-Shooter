@@ -17,9 +17,7 @@ MonoBehaviour:
     EnemiesOnScene:
     - EnemyType: 0
       DropItemsIDs:
-      - small_healthkit
       - small_exp
     - EnemyType: 1
       DropItemsIDs:
-      - small_healthkit
       - small_exp

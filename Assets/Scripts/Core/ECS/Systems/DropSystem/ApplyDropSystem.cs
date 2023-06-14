@@ -29,11 +29,14 @@ public class ApplyDropSystem : IEcsInitSystem, IEcsRunSystem
             switch(item.DropItemType)
             {
                 case DropItemType.Experience:
-
+                    var expRequest = _world.NewEntity();
+                    ref var expPickUpRequest = ref _world.GetPool<ExperiencePickUpRequest>().Add(expRequest);
+                    var expData = item as ExperienceItemData;
+                    expPickUpRequest.ExpAmount = expData.ExpToGive;
                     break;
                 case DropItemType.Healthpack:
-                    var request = _world.NewEntity();
-                    ref var healthPickUpRequest = ref _world.GetPool<HealthPickUpRequest>().Add(request);
+                    var healthRequest = _world.NewEntity();
+                    ref var healthPickUpRequest = ref _world.GetPool<HealthPickUpRequest>().Add(healthRequest);
                     var healthKitData = item as HealthKitItemData;
                     healthPickUpRequest.HealthAmount = healthKitData.RestoreHealthAmount;
                     break;

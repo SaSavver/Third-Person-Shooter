@@ -17,4 +17,5 @@ MonoBehaviour:
   PlayerMaxHealth: 100
   DistanceToPickUpItem: 0.1
   DefaultDistanceToMagnetItem: 3
+  DefaulMaxExp: 100
   DefaultWeaponID: 1

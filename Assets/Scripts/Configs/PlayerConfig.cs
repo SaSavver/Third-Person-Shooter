@@ -13,5 +13,7 @@ public class PlayerConfig : ScriptableObject
     public float DistanceToPickUpItem;
     public float DefaultDistanceToMagnetItem;
 
+    public float DefaulMaxExp;
+
     public string DefaultWeaponID;
 }

@@ -33,7 +33,7 @@ MonoBehaviour:
       data:
         ItemID: small_exp
         DropItemTypeLocal: 0
-        ExpToGive: 50
+        ExpToGive: 55
         ItemDropChance: 100
         ItemPrefab: {fileID: 4482687027051273743, guid: 30a115b16e1a03e4f8e87510b4db0d78, type: 3}
     - rid: 4484750808139169796
@@ -43,4 +43,4 @@ MonoBehaviour:
         DropItemTypeLocal: 0
         ExpToGive: 500
         ItemDropChance: 20
-        ItemPrefab: {fileID: 2671981165139119416, guid: b23a6f1c49e7d9848953a17e97cc2a44, type: 3}
+        ItemPrefab: {fileID: 2432098824059201496, guid: b23a6f1c49e7d9848953a17e97cc2a44, type: 3}

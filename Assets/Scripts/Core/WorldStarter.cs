@@ -47,6 +47,7 @@ public class WorldStarter : MonoBehaviour
             .Add(new DropItemMagnetSystem())
             .Add(new ApplyDropSystem())
             .Add(new PlayerHealthSystem())
+            .Add(new PlayerExperienceSystem())
             .Add(new PlayerDeathSystem())
             .Add(new EnemyRegisterSystem())
             .Add(new EnemySpawnSystem())

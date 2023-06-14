@@ -221,6 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4852759371834087711}
   - component: {fileID: 970053517817921053}
+  - component: {fileID: 8882575665533815278}
   m_Layer: 5
   m_Name: LevelProgressBar
   m_TagString: Untagged
@@ -260,6 +261,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3496742889051783140}
   m_CullTransparentMesh: 1
+--- !u!114 &8882575665533815278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3496742889051783140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5131878130691c84c8692dd08fab59de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _expProgressionBar: {fileID: 5085252609678347649}
+  _currentLevelText: {fileID: 6337325304685255010}
+  _nextLevelText: {fileID: 5636092075628521909}
 --- !u!1 &3626236771961104094
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sosokView: {fileID: 7107751546347749688}
   _healthbarSpawnRoot: {fileID: 4055209694986620418}
+  _expBarView: {fileID: 8882575665533815278}
 --- !u!1 &7107751546463805664
 GameObject:
   m_ObjectHideFlags: 0
