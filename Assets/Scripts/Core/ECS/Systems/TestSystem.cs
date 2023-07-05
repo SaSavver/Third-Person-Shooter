@@ -9,6 +9,7 @@ public class TestSystem : IEcsInitSystem, IEcsRunSystem
     private SharedData _sharedData;
 
 
+
     public void Init(IEcsSystems systems)
     {
         _world = systems.GetWorld();
@@ -18,6 +19,7 @@ public class TestSystem : IEcsInitSystem, IEcsRunSystem
     {
         TestPlayerDamage();
         TestEnemySpawn();
+        TestExpMultiplier();
     }
 
     private void TestPlayerDamage()
@@ -44,5 +46,16 @@ public class TestSystem : IEcsInitSystem, IEcsRunSystem
             enemySpawnRequest.EnemyAmount = 2;
             enemySpawnRequest.EnemyType = EnemyType.Default;
         }
+    }
+
+    private void TestExpMultiplier()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            var request = _world.NewEntity();
+            ref var pickUpRequest = ref _world.GetPool<ExperiencePickUpRequest>().Add(request);
+            pickUpRequest.ExpAmount = 500;
+        }
+
     }
 }

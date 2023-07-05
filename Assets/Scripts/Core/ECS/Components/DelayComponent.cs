@@ -4,5 +4,5 @@ using UnityEngine;
 
 public struct DelayComponent 
 {
-    public float NextTime;
+    public float ExpireAt;
 }

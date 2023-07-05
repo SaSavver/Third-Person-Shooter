@@ -10,13 +10,15 @@ public class EnemyAttackSystem : IEcsInitSystem, IEcsRunSystem
 
     private EcsFilter _playerFilter;
     private EcsFilter _enemiesFilter;
+    private EcsFilter _difficultyFilter;
 
     public void Init(IEcsSystems systems)
     {
         _world = systems.GetWorld();
         _sharedData = systems.GetShared<SharedData>();
         _playerFilter = _world.Filter<PlayerComponent>().End();
-        _enemiesFilter = _world.Filter<EnemyViewComponent>().End();
+        _difficultyFilter = _world.Filter<DifficultyComponent>().End();
+        _enemiesFilter = _world.Filter<EnemyViewComponent>().Exc<DelayComponent>().End();
     }
 
     public void Run(IEcsSystems systems)
@@ -26,17 +28,18 @@ public class EnemyAttackSystem : IEcsInitSystem, IEcsRunSystem
             ref var playerViewComponent = ref _world.GetPool<PlayerComponent>().Get(player);
             foreach (var enemy in _enemiesFilter)
             {
-                ref var enemyViewComponent = ref _world.GetPool<EnemyViewComponent>().Get(enemy);
-                ref var delayComponent = ref _world.GetPool<DelayComponent>().Get(enemy);
-
-                var enemyVariant = _sharedData.GlobalStorageConfig.EnemiesConfig.GetEnemyVariantByType(enemyViewComponent.EnemyView.Type);
-                var enemyPosition = enemyViewComponent.EnemyView.transform.position;
-                var playerPosition = playerViewComponent.PlayerView.transform.position;
-                var distanceToPlayer = Vector3.Distance(enemyPosition, playerPosition);
-
-                if (distanceToPlayer <= enemyVariant.AttackDistance)
+                foreach (var difficulty in _difficultyFilter)
                 {
-                    if (Time.time >= delayComponent.NextTime)
+                    ref var enemyViewComponent = ref _world.GetPool<EnemyViewComponent>().Get(enemy);
+                    ref var delayComponent = ref _world.GetPool<DelayComponent>().Add(enemy);
+                    ref var difficultyComponent = ref _world.GetPool<DifficultyComponent>().Get(difficulty);
+
+                    var enemyVariant = _sharedData.GlobalStorageConfig.EnemiesConfig.GetEnemyVariantByType(enemyViewComponent.EnemyView.Type);
+                    var enemyPosition = enemyViewComponent.EnemyView.transform.position;
+                    var playerPosition = playerViewComponent.PlayerView.transform.position;
+                    var distanceToPlayer = Vector3.Distance(enemyPosition, playerPosition);
+
+                    if (distanceToPlayer <= enemyVariant.AttackDistance)
                     {
                         var damageRequest = _world.NewEntity();
                         ref var requestTargetComponent = ref _world.GetPool<TargetComponent>().Add(damageRequest);
@@ -44,14 +47,13 @@ public class EnemyAttackSystem : IEcsInitSystem, IEcsRunSystem
 
                         requestTargetComponent.TargetEntitiy = _world.PackEntity(player);
                         var damageAmount = enemyVariant.Damage;
-                        requestEvent.DamageAmount = damageAmount;
+                        requestEvent.DamageAmount = damageAmount * difficultyComponent.CurrentDifficulty;
 
                         Debug.Log($"Attacked Player \n Damage dealt: {damageAmount}");
 
-                        delayComponent.NextTime = Time.time + enemyVariant.AttackDelay;
+                        delayComponent.ExpireAt = Time.time + enemyVariant.AttackDelay;
                     }
                 }
-
             }
         }
     }

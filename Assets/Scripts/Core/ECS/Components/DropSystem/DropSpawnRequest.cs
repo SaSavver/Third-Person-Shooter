@@ -6,4 +6,5 @@ public struct DropSpawnRequest
 {
     public string DropID;
     public Vector3 DropPoint;
+    public int DropAmount;
 }

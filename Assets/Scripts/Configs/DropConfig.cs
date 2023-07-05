@@ -6,7 +6,6 @@ using UnityEngine;
 public interface IDropItem
 {
     public string ID { get; }
-    public float DropChance { get; }
     public DropItemView DropItemPrefab { get; }
     public DropItemType DropItemType { get; }
 }
@@ -47,7 +46,6 @@ public class ExperienceItemData : IDropItem
     public DropItemView ItemPrefab;
 
     public string ID => ItemID;
-    public float DropChance => ItemDropChance;
     public DropItemView DropItemPrefab => ItemPrefab;
     public DropItemType DropItemType => DropItemTypeLocal;
 }

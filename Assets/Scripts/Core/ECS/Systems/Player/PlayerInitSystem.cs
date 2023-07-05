@@ -16,7 +16,6 @@ public class PlayerInitSystem : IEcsInitSystem
         ref var animatorComponent = ref world.GetPool<AnimatorComponent>().Add(entity);
         ref var healthComponent = ref world.GetPool<HealthComponent>().Add(entity);
         ref var weaponComponent = ref world.GetPool<WeaponComponent>().Add(entity);
-        ref var delayComponent = ref world.GetPool<DelayComponent>().Add(entity);
         ref var expComponent = ref world.GetPool<ExperienceComponent>().Add(entity);
 
         playerComponent.PlayerView = player;

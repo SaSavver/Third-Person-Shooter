@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 7107751545021448466}
   - component: {fileID: 7107751545021448464}
   - component: {fileID: 7107751545021448467}
+  - component: {fileID: 4169076881082357947}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -447,6 +448,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4169076881082357947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7107751545021448469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1d4a399b948624a95799bf4f3b22f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timerText: {fileID: 7107751545021448467}
 --- !u!1 &7107751546351064995
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +582,7 @@ MonoBehaviour:
   _sosokView: {fileID: 7107751546347749688}
   _healthbarSpawnRoot: {fileID: 4055209694986620418}
   _expBarView: {fileID: 8882575665533815278}
+  _timerView: {fileID: 4169076881082357947}
 --- !u!1 &7107751546463805664
 GameObject:
   m_ObjectHideFlags: 0

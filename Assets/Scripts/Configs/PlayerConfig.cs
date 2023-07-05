@@ -16,4 +16,11 @@ public class PlayerConfig : ScriptableObject
     public float DefaulMaxExp;
 
     public string DefaultWeaponID;
+
+    public float GetNewMaxXp(float lvl)
+    {
+        var a = (Mathf.Exp(lvl) * Mathf.Log10(lvl)) / lvl;
+        var output = Mathf.Clamp(a, 1, float.MaxValue) * 100;
+        return output;
+    }
 }

@@ -38,22 +38,27 @@ public class PlayerExperienceSystem : IEcsInitSystem, IEcsRunSystem
         foreach(var req in _expPickUpReuqest)
         {
             ref var expRequestComponent = ref _world.GetPool<ExperiencePickUpRequest>().Get(req);
-            foreach(var player in _playerFilter)
+            foreach (var player in _playerFilter)
             {
                 ref var expComponent = ref _world.GetPool<ExperienceComponent>().Get(player);
 
                 expComponent.CurrentExp += expRequestComponent.ExpAmount;
-                if(expComponent.CurrentExp >= expComponent.MaxExp)
+                if (expComponent.CurrentExp >= expComponent.MaxExp)
                 {
                     expComponent.CurrentExp -= expComponent.MaxExp;
                     expComponent.Level++;
+                    expComponent.MaxExp = _sharedData.GlobalStorageConfig.PlayerConfig.GetNewMaxXp(expComponent.Level);
+                    expRequestComponent.ExpAmount = 0f;
                 }
-
+                Debug.Log($"Max Exp: {expComponent.MaxExp}");
                 var battleScreen = _sharedData.ScreenController.CurrentScreen as BattleScreen;
                 battleScreen.ExpBarView.UpdateExpBarProgression(expComponent.CurrentExp, expComponent.MaxExp, expComponent.Level);
-            }
 
-            _world.DelEntity(req);
+                if(expComponent.CurrentExp < expComponent.MaxExp)
+                {
+                    _world.DelEntity(req);
+                }
+            }
         }
     }
 }

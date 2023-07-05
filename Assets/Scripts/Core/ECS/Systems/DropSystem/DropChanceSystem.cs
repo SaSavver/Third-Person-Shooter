@@ -22,22 +22,41 @@ public class DropChanceSystem : IEcsInitSystem, IEcsRunSystem
     {
         foreach(var req in _dropChanceRequest)
         {
+            var rndCore = new WeightedRandom<string>();
             ref var dropChanceRequest = ref _world.GetPool<DropChanceRequest>().Get(req);
             var scenesConfig = _sharedData.GlobalStorageConfig.ScenesConfig;
             var dropConfig = _sharedData.GlobalStorageConfig.DropConfig;
 
-            var enemyDropIDs = scenesConfig.GetLevelByID("lvl_1").GetEnemyByEnemyType(dropChanceRequest.EnemyType).DropItemsIDs;
-            var randomDrop = enemyDropIDs.GetRandom();
-            var randomDropInfo = dropConfig.GetDropItemByID(randomDrop);
+            var enemyDropIDs = scenesConfig.GetLevelByID("lvl_1").GetEnemyByEnemyType(dropChanceRequest.EnemyType).
+                DropItemsIDs;
 
-            var t = Random.Range(0f, 100f);
-            if(t <= randomDropInfo.DropChance)
+           
+            foreach(var enemyInfo in enemyDropIDs)
             {
+                var lst = new List<WeightedRandom<string>.RandomItemContainer>();
+                var ost = 1f - enemyInfo.Weight;
+                lst.Add(new WeightedRandom<string>.RandomItemContainer()
+                {
+                    Item = enemyInfo.DropID,
+                    Weight = enemyInfo.Weight
+                });
+                lst.Add(new WeightedRandom<string>.RandomItemContainer()
+                {
+                    Item = string.Empty,
+                    Weight = ost
+                });
+                var rndItem = rndCore.GetRandomWeightItems(lst);
+
+                if (string.IsNullOrEmpty(rndItem))
+                    continue;
+
                 var request = _world.NewEntity();
                 ref var dropSpawnRequest = ref _world.GetPool<DropSpawnRequest>().Add(request);
-                dropSpawnRequest.DropID = randomDrop;
+                dropSpawnRequest.DropID = rndItem;
                 dropSpawnRequest.DropPoint = dropChanceRequest.DeathPoint;
             }
+          
+           
 
             _world.DelEntity(req);
         }

@@ -19,7 +19,7 @@ MonoBehaviour:
     Speed: 0.5
     Damage: 10
     AttackDelay: 1.5
-    AttackDistance: 0.5
+    AttackDistance: 1
     EnemyPrefab: {fileID: 5536237336010151900, guid: b322c49f5acb617409bd82c74211485e, type: 3}
   - Type: 1
     Health: 80
@@ -27,5 +27,5 @@ MonoBehaviour:
     Speed: 0.8
     Damage: 10
     AttackDelay: 1
-    AttackDistance: 0.5
+    AttackDistance: 1
     EnemyPrefab: {fileID: 8381640811884134029, guid: 26cdd135971e14d4c95a575f7cf097e5, type: 3}

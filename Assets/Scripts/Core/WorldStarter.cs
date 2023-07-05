@@ -51,6 +51,9 @@ public class WorldStarter : MonoBehaviour
             .Add(new PlayerDeathSystem())
             .Add(new EnemyRegisterSystem())
             .Add(new EnemySpawnSystem())
+            .Add(new DelaySystem())
+            .Add(new InGameTimerSystem())
+            .Add(new DifficultySystem())
             .Add(new TestSystem())
             
             .Init();

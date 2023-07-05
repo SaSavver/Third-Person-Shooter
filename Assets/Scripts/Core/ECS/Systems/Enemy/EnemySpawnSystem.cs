@@ -1,4 +1,5 @@
 using Leopotam.EcsLite;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class EnemySpawnSystem : IEcsInitSystem, IEcsRunSystem
     private SharedData _sharedData;
 
     private EcsFilter _enemySpawnRequest;
+
 
     public void Init(IEcsSystems systems)
     {
@@ -26,15 +28,21 @@ public class EnemySpawnSystem : IEcsInitSystem, IEcsRunSystem
             var enemyAmount = enemySpawnRequest.EnemyAmount;
             var enemyType = enemySpawnRequest.EnemyType;
 
-            var spawnPoints = _sharedData.SceneLinker.EnemySpawnPoints;
-            var rndSystem = new System.Random();
-            Transform currentSpawnPoint = spawnPoints[rndSystem.Next(0, spawnPoints.Length - 1)];
-
             for (int i = 0; i <= enemyAmount; i++)
             {
+                var radius = _sharedData.GlobalStorageConfig.ScenesConfig.EnemySpawnRadius;
+                var spawnPoints = _sharedData.SceneLinker.EnemySpawnPoints;
+                var rndSystem = new System.Random();
+                Transform currentSpawnPoint = spawnPoints[rndSystem.Next(0, spawnPoints.Length - 1)];
+                Vector3 spawnPos = new Vector3(
+                    currentSpawnPoint.position.x + UnityEngine.Random.Range(0, radius),
+                    currentSpawnPoint.position.y + UnityEngine.Random.Range(0, radius),
+                    0);
+
+
                 var enemyPrefab = 
                     _sharedData.GlobalStorageConfig.EnemiesConfig.GetEnemyVariantByType(enemyType).EnemyPrefab;
-                var instance = GameObject.Instantiate(enemyPrefab, currentSpawnPoint);
+                var instance = GameObject.Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
 
                 var entity = _world.NewEntity();
                 ref var enemyRegisterRequest = ref _world.GetPool<EnemyRegisterRequest>().Add(entity);
