@@ -18,10 +18,18 @@ MonoBehaviour:
     EnemiesOnScene:
     - EnemyType: 0
       DropItemsIDs:
-      - small_exp
+      - DropID: small_exp
+        Weight: 1
+      - DropID: small_healthkit
+        Weight: 0.2
+      BaseExpDropAmount: 0
     - EnemyType: 1
       DropItemsIDs:
-      - small_exp
+      - DropID: small_exp
+        Weight: 1
+      - DropID: small_healthkit
+        Weight: 0.2
+      BaseExpDropAmount: 0
     DifficultyCurve:
       serializedVersion: 2
       m_Curve:
