@@ -16,12 +16,13 @@ public class PlayerAnimationSystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
         var inputFilter = _world.Filter<InputComponent>().End(1);
         foreach (var inputEntity in inputFilter)
         {
             ref var inputComponent = ref _world.GetPool<InputComponent>().Get(inputEntity);
             var input = inputComponent.Input;
-            var inputNull = input.magnitude < .1f;
+            var inputNull = input.magnitude < .1f || inPause;
 
             var up = input.y > _sharedData.GlobalStorageConfig.PlayerConfig.PlayerInputVectorToTurn;
             var down = input.y < -_sharedData.GlobalStorageConfig.PlayerConfig.PlayerInputVectorToTurn;

@@ -26,7 +26,11 @@ public class DropItemMagnetSystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
-        foreach(var player in _playerFilter)
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+        if (inPause)
+            return;
+
+        foreach (var player in _playerFilter)
         {
             ref var playerComponent = ref _world.GetPool<PlayerComponent>().Get(player);
             var playerPos = playerComponent.PlayerView.gameObject.transform.position;

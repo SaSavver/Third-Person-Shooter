@@ -21,12 +21,16 @@ public class InputSystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+
         var joystickFilter = _world.Filter<JoystickViewComponent>().End(1);
         foreach(var joystickId in joystickFilter)
         {
             ref var joystick = ref _world.GetPool<JoystickViewComponent>().Get(joystickId);  
             var input = joystick.JoystickView.Input;
             var inputVector = new Vector3(input.x, input.y, 0f);
+            if (inPause)
+                inputVector = Vector3.zero;
             ref var inputComponent = ref _inputPool.Get(_inputEntity);
             inputComponent.Input = inputVector;
         }

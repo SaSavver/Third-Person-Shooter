@@ -22,7 +22,11 @@ public class EnemySpawnSystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
-        foreach(var request in _enemySpawnRequest)
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+        if (inPause)
+            return;
+
+        foreach (var request in _enemySpawnRequest)
         {
             ref var enemySpawnRequest = ref _world.GetPool<EnemySpawnRequest>().Get(request);
             var enemyAmount = enemySpawnRequest.EnemyAmount;

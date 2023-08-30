@@ -50,6 +50,7 @@ public class PlayerExperienceSystem : IEcsInitSystem, IEcsRunSystem
                     expComponent.MaxExp = _sharedData.GlobalStorageConfig.PlayerConfig.GetNewMaxXp(expComponent.Level);
                     expRequestComponent.ExpAmount = 0f;
                 }
+                Debug.Log($"Exp Given: {expRequestComponent.ExpAmount}");
                 Debug.Log($"Max Exp: {expComponent.MaxExp}");
                 var battleScreen = _sharedData.ScreenController.CurrentScreen as BattleScreen;
                 battleScreen.ExpBarView.UpdateExpBarProgression(expComponent.CurrentExp, expComponent.MaxExp, expComponent.Level);

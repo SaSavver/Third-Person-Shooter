@@ -22,7 +22,11 @@ public class EnemyFollowSystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
-        foreach(var player in _playerFilter)
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+        if (inPause)
+            return;
+
+        foreach (var player in _playerFilter)
         {
             ref var playerViewComponent = ref _world.GetPool<PlayerComponent>().Get(player);
             foreach (var enemy in _enemyFilter)

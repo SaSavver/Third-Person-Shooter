@@ -30,7 +30,11 @@ public class InGameTimerSystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
-        foreach(var timer in _timerFilter)
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+        if (inPause)
+            return;
+
+        foreach (var timer in _timerFilter)
         {
             ref var timerComponent = ref _world.GetPool<TimerComponent>().Get(timer);
             var timerView = timerComponent.TimerView;

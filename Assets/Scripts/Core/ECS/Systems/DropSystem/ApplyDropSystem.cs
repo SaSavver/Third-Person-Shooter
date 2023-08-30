@@ -9,6 +9,7 @@ public class ApplyDropSystem : IEcsInitSystem, IEcsRunSystem
     private SharedData _sharedData;
 
     private EcsFilter _pickUpRequest;
+    private EcsFilter _difficultyFilter;
 
     public void Init(IEcsSystems systems)
     {
@@ -16,6 +17,7 @@ public class ApplyDropSystem : IEcsInitSystem, IEcsRunSystem
         _sharedData = systems.GetShared<SharedData>();
 
         _pickUpRequest = _world.Filter<DropItemPickUpRequest>().End();
+        _difficultyFilter = _world.Filter<DifficultyComponent>().End();
     }
 
     public void Run(IEcsSystems systems)
@@ -26,25 +28,28 @@ public class ApplyDropSystem : IEcsInitSystem, IEcsRunSystem
 
             var item = _sharedData.GlobalStorageConfig.DropConfig.GetDropItemByID(pickUpReqComponent.ItemID);
 
-            switch(item.DropItemType)
+            foreach (var dif in _difficultyFilter)
             {
-                case DropItemType.Experience:
-                    var expRequest = _world.NewEntity();
-                    ref var expPickUpRequest = ref _world.GetPool<ExperiencePickUpRequest>().Add(expRequest);
-                    var expData = item as ExperienceItemData;
-                    expPickUpRequest.ExpAmount = expData.ExpToGive;
-                    break;
-                case DropItemType.Healthpack:
-                    var healthRequest = _world.NewEntity();
-                    ref var healthPickUpRequest = ref _world.GetPool<HealthPickUpRequest>().Add(healthRequest);
-                    var healthKitData = item as HealthKitItemData;
-                    healthPickUpRequest.HealthAmount = healthKitData.RestoreHealthAmount;
-                    break;
-                case DropItemType.PowerUp:
+                ref var difficultyComponent = ref _world.GetPool<DifficultyComponent>().Get(dif);
+                switch (item.DropItemType)
+                {
+                    case DropItemType.Experience:
+                        var expRequest = _world.NewEntity();
+                        ref var expPickUpRequest = ref _world.GetPool<ExperiencePickUpRequest>().Add(expRequest);
+                        var expData = item as ExperienceItemData;
+                        expPickUpRequest.ExpAmount = expData.ExpToGive * difficultyComponent.CurrentDifficulty;
+                        break;
+                    case DropItemType.Healthpack:
+                        var healthRequest = _world.NewEntity();
+                        ref var healthPickUpRequest = ref _world.GetPool<HealthPickUpRequest>().Add(healthRequest);
+                        var healthKitData = item as HealthKitItemData;
+                        healthPickUpRequest.HealthAmount = healthKitData.RestoreHealthAmount;
+                        break;
+                    case DropItemType.PowerUp:
 
-                    break;
+                        break;
+                }
             }
-
             _world.DelEntity(req);
         }
     }

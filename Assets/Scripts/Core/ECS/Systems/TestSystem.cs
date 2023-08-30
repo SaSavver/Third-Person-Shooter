@@ -8,7 +8,8 @@ public class TestSystem : IEcsInitSystem, IEcsRunSystem
     private EcsWorld _world;
     private SharedData _sharedData;
 
-
+    private bool _isPaused = false;
+    private ScreenBase _pausePopUp;
 
     public void Init(IEcsSystems systems)
     {
@@ -20,6 +21,7 @@ public class TestSystem : IEcsInitSystem, IEcsRunSystem
         TestPlayerDamage();
         TestEnemySpawn();
         TestExpMultiplier();
+        TestPause();
     }
 
     private void TestPlayerDamage()
@@ -57,5 +59,28 @@ public class TestSystem : IEcsInitSystem, IEcsRunSystem
             pickUpRequest.ExpAmount = 500;
         }
 
+    }
+
+    private void TestPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!_isPaused)
+            {
+                Debug.Log("Request Sent <color=yellow>(Pause)</color>");
+                var req = _world.NewEntity();
+                _world.GetPool<PauseRequest>().Add(req);
+                _isPaused = true;
+                _pausePopUp = _sharedData.ScreenController.ShowPopup(typeof(InGamePausePopUp), new NullScreenData());
+            }
+            else
+            {
+                Debug.Log("Request Sent <color=yellow>(Unpause)</color>");
+                var req = _world.NewEntity();
+                _world.GetPool<UnpauseRequest>().Add(req);
+                _isPaused = false;
+                _pausePopUp.Close();
+            }
+        }
     }
 }

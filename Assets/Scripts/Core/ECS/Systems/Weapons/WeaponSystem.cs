@@ -21,7 +21,11 @@ public class WeaponSystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
-        foreach(var playerTarget in _playerTargetFilter)
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+        if (inPause)
+            return;
+
+        foreach (var playerTarget in _playerTargetFilter)
         {
                 ref var targetComponent = ref _world.GetPool<TargetComponent>().Get(playerTarget);
                 ref var weaponComponent = ref _world.GetPool<WeaponComponent>().Get(playerTarget);

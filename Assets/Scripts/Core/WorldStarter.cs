@@ -54,6 +54,7 @@ public class WorldStarter : MonoBehaviour
             .Add(new DelaySystem())
             .Add(new InGameTimerSystem())
             .Add(new DifficultySystem())
+            .Add(new PauseSystem())
             .Add(new TestSystem())
             
             .Init();

@@ -20,7 +20,11 @@ public class DelaySystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
-        foreach(var delay in _delayFilter)
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+        if (inPause)
+            return;
+
+        foreach (var delay in _delayFilter)
         {
             ref var delayComponent = ref _world.GetPool<DelayComponent>().Get(delay);
 

@@ -41,8 +41,9 @@ public class EnemyRegisterSystem : IEcsInitSystem, IEcsRunSystem
 
                 enemyViewComponent.EnemyView = enemy;
                 animatorComponent.Animator = enemy.EnemyAnimator;
-                healthComponent.Health = enemyVariant.Health;
-                healthComponent.MaxHealth = enemyVariant.MaxHealth * difficultyComponent.CurrentDifficulty;
+                var currentMaxHealth = enemyVariant.MaxHealth * difficultyComponent.CurrentDifficulty;
+                healthComponent.Health = currentMaxHealth;
+                healthComponent.MaxHealth = currentMaxHealth;
                 enemyInfoComponent.ExpDropAmount = _sharedData.GlobalStorageConfig.ScenesConfig.GetLevelByBuildIndex(0).GetEnemyByEnemyType(enemy.Type).BaseExpDropAmount;
                 
 

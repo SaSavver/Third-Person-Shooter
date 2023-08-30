@@ -31,7 +31,11 @@ public class DifficultySystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
-        foreach(var difEntity in _difficultyFilter)
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+        if (inPause)
+            return;
+
+        foreach (var difEntity in _difficultyFilter)
         {
             ref var difficultyComponent = ref _world.GetPool<DifficultyComponent>().Get(difEntity);
             var currentSceneIdx = SceneManager.GetActiveScene().buildIndex;

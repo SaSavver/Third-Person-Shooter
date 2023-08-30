@@ -16,7 +16,11 @@ public class DamageSystem : IEcsInitSystem, IEcsRunSystem
 
     public void Run(IEcsSystems systems)
     {
-        foreach(var req in _damageRequestFilter)
+        var inPause = _world.Filter<PauseComponent>().End().GetEntitiesCount() > 0;
+        if (inPause)
+            return;
+
+        foreach (var req in _damageRequestFilter)
         {
             ref var requestData = ref _world.GetPool<DamageEventComponent>().Get(req);
             ref var targetComponent = ref _world.GetPool<TargetComponent>().Get(req);
